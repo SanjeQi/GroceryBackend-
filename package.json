@@ -19,7 +19,8 @@
   "homepage": "https://github.com/SanjeQi/grocerybackend#readme",
   "dependencies": {
     "babel-cli": "^6.26.0",
-    "body-parser": "^1.18.3"
+    "body-parser": "^1.18.3",
+    "node-fetch": "^2.3.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.9"

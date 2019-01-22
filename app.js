@@ -1,5 +1,5 @@
 import bodyParser from 'body-parser'
-
+const fetch = require('node-fetch')
 const express = require('express')
 const db = require('./db/db.js')
 
@@ -9,13 +9,31 @@ const app = express()
 // Parse incoming requests data
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type,  Accept'
+  )
+  next()
+})
+
+let allData = []
+const getData = () => {
+  fetch('https://api.punkapi.com/v2/beers?brewed_before=11-2012&abv_gt=6')
+    .then(response => response.json())
+    .then(data => {
+      allData = data
+    })
+}
+getData()
 
 // get all todos
 app.get('/api/v1/todos', (req, res) => {
   res.status(200).send({
     success: 'true',
     message: 'todos retrieved successfully',
-    todos: db
+    drinks: allData
   })
 })
 
